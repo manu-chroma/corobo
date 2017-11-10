@@ -162,6 +162,12 @@ class LabHub(BotPlugin):
 
         if repo_name in self.REPOS:
             repo = self.REPOS[repo_name]
+            # TODO: Return the url to the issue with duplicate issue title
+            # in the return string.
+            for issue in list(repo.search_issues()):
+                if iss_title == issue.title:
+                    return ('Can\'t create an issue with the given title ')
+
             iss = repo.create_issue(iss_title, iss_description + extra_msg)
             return 'Here you go: {}'.format(iss.url)
         else:
